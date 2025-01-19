@@ -33,11 +33,34 @@ class MethodChannelKirzFlutterTunnelkit extends KirzFlutterTunnelkitPlatform {
     });
   }
 
+  VpnStatus _mapStatus(String name) {
+    switch (name) {
+      case "invalid":
+        return VpnStatus.invalid;
+      case "disconnected":
+        return VpnStatus.disconnected;
+      case "connecting":
+        return VpnStatus.connecting;
+      case "connected":
+        return VpnStatus.connected;
+      case "reasserting":
+        return VpnStatus.reasserting;
+      case "disconnecting":
+        return VpnStatus.disconnecting;
+      case "none":
+        return VpnStatus.none;
+      case "unknown":
+        return VpnStatus.unknown;
+      default:
+        throw Exception("Unknown status: $name");
+    }
+  }
+
   @override
   Future<VpnStatus> getVpnStatus() async {
     final status = await methodChannel.invokeMethod('getVpnStatus');
 
-    return VpnStatus.values[status as int];
+    return _mapStatus(status);
   }
 
   @override
@@ -50,9 +73,8 @@ class MethodChannelKirzFlutterTunnelkit extends KirzFlutterTunnelkitPlatform {
 
   @override
   Stream<VpnStatus> get onVpnStatusChanged {
-    return _onVpnStatusChanged ??= eventChannel
-        .receiveBroadcastStream('onVpnStatusChanged')
-        .map((event) => VpnStatus.values[event as int]);
+    return _onVpnStatusChanged ??=
+        eventChannel.receiveBroadcastStream('onVpnStatusChanged').map((event) => _mapStatus(event));
   }
 
   @override

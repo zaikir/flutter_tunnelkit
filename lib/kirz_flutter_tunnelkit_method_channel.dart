@@ -75,7 +75,7 @@ class MethodChannelKirzFlutterTunnelkit extends KirzFlutterTunnelkitPlatform {
   Stream<VpnStatus> get onVpnStatusChanged {
     return _onVpnStatusChanged ??= eventChannel
         .receiveBroadcastStream('onVpnStatusChanged')
-        .map((event) => _mapStatus(event.status));
+        .map((event) => _mapStatus(event['status']));
   }
 
   @override

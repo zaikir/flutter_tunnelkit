@@ -1,6 +1,6 @@
 name: kirz_flutter_tunnelkit
 description: "Flutter TunnelKit implementation"
-version: 0.1.3
+version: 0.1.5
 homepage: https://github.com/zaikir/flutter_tunnelkit
 
 environment:

@@ -35,8 +35,8 @@ class FlutterTunnelkit {
 class VpnTrafficInfo {
   VpnTrafficInfo({required this.received, required this.sent});
 
-  final double received;
-  final double sent;
+  final int received;
+  final int sent;
 }
 
 enum VpnStatus {
